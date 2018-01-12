@@ -1,0 +1,56 @@
+<h1>Posts</h1>
+<div class="row">
+    <i *ngIf="isLoading" class="fa fa-spinner fa-spin fa-3x"></i>
+    <!--<spinner [visible]="isLoading"></spinner>-->
+    
+    <div class="col-md-6">
+        <div class="form-group row">
+        <select class="form-control" #u (change)="loadUserPosts({ userId: u.value })">
+            <option value="">Select User</option>
+            <option *ngFor="let user of users" value="{{ user.id }}">{{ user.name }}</option>
+        </select>
+    </div>
+        <div class="row">
+            <ul class="list-group posts">
+                <li class="list-group-item" *ngFor="let post of posts" (click)="select(post);">
+                    {{ post.title }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div class="col-md-6">
+        <div *ngIf="currentPost" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{currentPost.title}}</h3>
+            </div>
+            <div class="panel-body">
+                {{currentPost.body}}
+            </div>
+
+            <hr/>
+            <!--<spinner [visible]="commentsLoading"></spinner>-->
+            <i *ngIf="commentsLoading" class="fa fa-spinner fa-spin fa-3x"></i>
+
+            <!-- Comments -->
+            <div class="media" *ngFor="let comment of currentPost.comments">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object thumbnail" src="http://lorempixel.com/80/80/people?random={{ comment.id }}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ comment.name }}</h4>
+                    {{ comment.body }}
+                </div>
+            </div>
+
+            
+
+        </div>
+
+        
+
+    </div>
+</div>
